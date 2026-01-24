@@ -12,7 +12,6 @@ class ProductsController {
             res.status(200).json({message: 'Товар добавлен в корзину'})
 
         } catch (error) {
-            console.log(error)
             next(ApiError.internal('Не удалось добавить товар в корзину'));
         };
     };
@@ -24,8 +23,19 @@ class ProductsController {
             res.status(200).json(cartProducts);
 
         } catch (error) {
-            console.log(error)
             next(ApiError.internal('Не удалось добавить товар в корзину'));
+        };
+    };
+
+    removeFormCart = async (req, res, next) => {
+        try {
+            const { id } = req.body;
+
+            await CartProduct.destroy({ where: { id } });
+
+            res.status(200).json({message: 'Товар удален из корзины'})
+        } catch (error) {
+            next(ApiError.internal('Не удалось удалить товар из корзины'));
         };
     };
 }
