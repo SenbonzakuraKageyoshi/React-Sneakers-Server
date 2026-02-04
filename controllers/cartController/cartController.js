@@ -31,7 +31,7 @@ class ProductsController {
                 }
             })
 
-            res.status(200).json(formattedCartProducts);
+            res.status(200).json(formattedCartProducts.reverse());
 
         } catch (error) {
             next(ApiError.internal('Не удалось добавить товар в корзину'));

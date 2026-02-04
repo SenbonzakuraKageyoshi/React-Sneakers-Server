@@ -29,7 +29,7 @@ class OrdersController {
                 }
             })
 
-            res.status(200).json(formattedOrders)
+            res.status(200).json(formattedOrders.reverse())
         } catch (error) {
             next(ApiError.internal('Не удалось получить заказы'));
         }

@@ -6,7 +6,7 @@ class ProductsController {
         try {
             const products = await Product.findAll();
 
-            res.status(200).json(products)
+            res.status(200).json(products.reverse())
 
         } catch (error) {
             console.log(error)

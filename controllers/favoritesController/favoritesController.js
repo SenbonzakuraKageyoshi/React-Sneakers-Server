@@ -31,7 +31,7 @@ class FavoritesController {
                 }
             })
 
-            res.status(200).json(formattedFavorites)
+            res.status(200).json(formattedFavorites.reverse())
         } catch (error) {
             console.log(error)
             next(ApiError.internal('Не удалось получить отложенные товары'));
