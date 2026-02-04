@@ -17,6 +17,23 @@ class OrdersController {
             next(ApiError.internal('Не удалось создать заказ'));
         };
     };
+
+    getOrders = async (req, res, next) => {
+        try {
+            const orders = await Order.findAll();
+            
+            const formattedOrders = orders.map((el) => {
+                return {
+                    ...el.dataValues,
+                    products: JSON.parse(el.dataValues.products)
+                }
+            })
+
+            res.status(200).json(formattedOrders)
+        } catch (error) {
+            next(ApiError.internal('Не удалось получить заказы'));
+        }
+    }
 }
 
 export default new OrdersController();

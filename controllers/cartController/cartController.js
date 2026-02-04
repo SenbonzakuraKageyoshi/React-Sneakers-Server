@@ -20,7 +20,18 @@ class ProductsController {
         try {
             const cartProducts = await CartProduct.findAll({include: [Product]});
 
-            res.status(200).json(cartProducts);
+            const formattedCartProducts = cartProducts.map((el) => {
+                return {
+                    id: el.dataValues.id,
+                    createdAt: el.dataValues.createdAt,
+                    updatedAt: el.dataValues.updatedAt,
+                    title: el.Product.dataValues.title,
+                    price: el.Product.dataValues.price,
+                    image: el.Product.dataValues.image
+                }
+            })
+
+            res.status(200).json(formattedCartProducts);
 
         } catch (error) {
             next(ApiError.internal('Не удалось добавить товар в корзину'));
